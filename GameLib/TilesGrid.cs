@@ -7,8 +7,7 @@ namespace GameLib
     {
         private readonly byte size;
         private readonly byte baseNumber;
-        private ushort[,] grid;
-        private ushort emptyTiles;
+        public ushort[,] grid;
 
         public TilesGrid(byte size, byte baseNumber = 2)
         {
@@ -18,7 +17,7 @@ namespace GameLib
             }
 
             this.size = size;
-            this.emptyTiles = (ushort) (size * size);
+            //this.emptyTiles = (ushort) (size * size);
             this.baseNumber = baseNumber;
             this.grid = new ushort[size, size];
         }
@@ -69,8 +68,32 @@ namespace GameLib
 
         public void move(Directions direction) 
         {
-            // todo -> transform array depends of direction
-            grid = merge();
+            ushort[,] moved;
+            switch (direction)
+            {
+                case Directions.Top:
+                    moved = Utils.RotateMatrix(grid, 4, false);
+                    moved = merge(moved);
+                    moved = Utils.RotateMatrix(moved, 4, true);
+                    break;
+                case Directions.Right:
+                    moved = Utils.FlipVertical(grid);
+                    moved = merge(moved);
+                    moved = Utils.FlipVertical(moved);
+                    break;
+                case Directions.Bottom:
+                    moved = Utils.FlipHorizontal(grid);
+                    moved = Utils.RotateMatrix(moved, 4, false);
+                    moved = merge(moved);
+                    moved = Utils.RotateMatrix(moved, 4, true);
+                    moved = Utils.FlipHorizontal(moved);
+                    break;
+                default:
+                    moved = merge(grid);
+                    break;
+            }
+
+            grid = moved;
         }
 
         public bool canMove()
@@ -80,7 +103,7 @@ namespace GameLib
         }
 
         // merge tiles from right to left
-        private ushort[,] merge()
+        private ushort[,] merge(ushort[,] grid)
         {
             ushort[,] merged = new ushort[size, size];
 
