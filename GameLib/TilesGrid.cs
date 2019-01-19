@@ -5,10 +5,15 @@ namespace GameLib
 {
     public class TilesGrid
     {
+        // size horiznotall/vertiacal of grid
         private readonly byte size;
+        // number used to spawn new Tile
         private readonly byte baseNumber;
-        public ushort[,] grid; //todo private
+        // List of merged values after last move
         public List<ushort> lastMergedValues = new List<ushort>();
+        // return actual state of Grid
+        public ushort[,] Grid { get; private set; }
+        // return if last move actually moved grid
         public bool isMoved = false;
 
         public TilesGrid(byte size, byte baseNumber = 2)
@@ -20,11 +25,11 @@ namespace GameLib
 
             this.size = size;
             this.baseNumber = baseNumber;
-            this.grid = new ushort[size, size];
+            this.Grid = new ushort[size, size];
         }
 
         // Get list of coordinates of empty cells
-        public List<Tuple<byte, byte>> EmptyTiles()
+        public List<Tuple<byte, byte>> GetEmptyTilesPos()
         {
             var result = new List < Tuple<byte, byte> >();
 
@@ -32,7 +37,7 @@ namespace GameLib
             {
                 for (byte j=0; j<size; j++)
                 {
-                    if (grid[i,j] == 0)
+                    if (Grid[i,j] == 0)
                     {
                         result.Add(new Tuple<byte, byte>(i, j));
                     }
@@ -42,7 +47,13 @@ namespace GameLib
             return result;
         }
 
-        public void addTile()
+        private void AddTile(byte x, byte y, ushort value)
+        {
+            // Fill picked tile with value:
+            Grid[x, y] = (ushort) value;
+        }
+
+        public void SpawnTile()
         {
             Random rnd = new Random();
 
@@ -51,52 +62,48 @@ namespace GameLib
             // and 20% change to pick value = 4
             int value = rnd.Next(0, 10) > 8 ? baseNumber * 2 : baseNumber;
 
-            // Get list of free slots
-            List<Tuple<byte, byte>> emptyTiles = this.EmptyTiles();
-            
+            // Get positions list of free slots
+            List<Tuple<byte, byte>> emptyTiles = GetEmptyTilesPos();
+
             // Pick random free tile slot, and set new value:
             int randomEmptyTileIndex = rnd.Next(0, emptyTiles.Count);
             var coordinatesEmptyTile = emptyTiles[randomEmptyTileIndex];
 
-            // Fill picked tile with value:
-            grid[
-                coordinatesEmptyTile.Item1,
-                coordinatesEmptyTile.Item2
-            ] = (ushort) value;
+            AddTile(coordinatesEmptyTile.Item1, coordinatesEmptyTile.Item2, (ushort) value);
         }
 
         public void MoveTop()
         {
-            var moved = Utils.RotateMatrix(grid, 3, false);
-                moved = merge(moved);
+            var moved = Utils.RotateMatrix(Grid, 3, false);
+                moved = CollapseLeft(moved);
 
-            grid = Utils.RotateMatrix(moved, 3, true);
+            Grid = Utils.RotateMatrix(moved, 3, true);
         }
 
         public void MoveRight()
         {
-            var moved = Utils.FlipVertical(grid);
-                moved = merge(moved);
+            var moved = Utils.FlipVertical(Grid);
+                moved = CollapseLeft(moved);
 
-            grid = Utils.FlipVertical(moved);
+            Grid = Utils.FlipVertical(moved);
         }
 
         public void MoveBottom()
         {
-            var moved = Utils.RotateMatrix(grid, 3, true);
-                moved = merge(moved);
+            var moved = Utils.RotateMatrix(Grid, 3, true);
+                moved = CollapseLeft(moved);
 
-            grid = Utils.RotateMatrix(moved, 3, false);
+            Grid = Utils.RotateMatrix(moved, 3, false);
         }
 
         public void MoveLeft()
         {
-            grid = merge(grid);
+            Grid = CollapseLeft(Grid);
         }
 
-        public bool canMove()
+        public bool CanMove()
         {
-            if (EmptyTiles().Count > 0)
+            if (GetEmptyTilesPos().Count > 0)
             {
                 return true;
             }
@@ -105,11 +112,11 @@ namespace GameLib
             {
                 for (byte j = 0; j < size; j++)
                 {
-                    if(j < size - 1 && grid[i, j] == grid[i, j+1]) {
+                    if(j < size - 1 && Grid[i, j] == Grid[i, j+1]) {
                         return true;
                     }
 
-                    if(i < size - 1 && grid[i, j] == grid[i+1, j]) {
+                    if(i < size - 1 && Grid[i, j] == Grid[i+1, j]) {
                         return true;
                     }
                 }
@@ -118,8 +125,8 @@ namespace GameLib
             return false;
         }
 
-        // merge tiles from right to left
-        private ushort[,] merge(ushort[,] grid)
+        // merge tiles from right to left of given grid and return new merged array
+        private ushort[,] CollapseLeft(ushort[,] grid)
         {
             lastMergedValues.Clear();
             ushort[,] merged = new ushort[size, size];
