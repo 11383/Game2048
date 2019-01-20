@@ -2,19 +2,23 @@
 
 namespace GameLib
 {
-    public class Game
+    public partial class Game
     {
         enum GameMode { Arcade, Free};
 
-        // value, when user win the game in Arcade Mode
+        // value, that decides when user win the game in 'Arcade Mode'
         private readonly ushort successValue;
         private readonly byte baseValue;
         // size of grid 
         private readonly byte size;
-        private TilesGrid grid;
+        private GameBoard gameBoard;
         private GameMode mode;
 
-        public int Score { get; private set; } = 0;
+        // score
+        private GameScore score;
+        public int Score => score.Score;
+        public int Highscore => score.Highscore;
+
         public bool IsPlaying { get; private set; }
         public bool IsWin { get; private set; }
 
@@ -29,14 +33,22 @@ namespace GameLib
             this.baseValue = baseValue;
             this.successValue = successValue;
 
-            Restart();
+            score = new GameScore();
+
+            if (!Load()) {
+                Restart();
+            }
         }
 
         public void Restart()
         {
+            score.Clear();
             mode = GameMode.Arcade;
             IsPlaying = true;
             InitGameBoard();
+
+            // remove incomplete game if exists
+            SaveRemove();
         }
 
         public void End()
@@ -46,15 +58,15 @@ namespace GameLib
 
         private void InitGameBoard()
         {
-            grid = new TilesGrid(size, baseValue);
-            grid.SpawnTile();
-            grid.SpawnTile();
+            gameBoard = new GameBoard(size, baseValue);
+            gameBoard.SpawnTile();
+            gameBoard.SpawnTile();
         }
 
         private void Move()
         {
             // add points
-            foreach (var point in grid.lastMergedValues)
+            foreach (var point in gameBoard.lastMergedValues)
             {
                 // user reached success value, so he win!
                 if (point == successValue && mode == GameMode.Arcade)
@@ -63,44 +75,45 @@ namespace GameLib
                     mode = GameMode.Free;
                 }
 
-                Score += point;
+                score.Add(point);
             }
 
-            if (grid.isMoved) {
-                grid.SpawnTile();
+            if (gameBoard.isMoved) {
+                gameBoard.SpawnTile();
+
+                Save();
             }
 
-            if (!grid.CanMove())
+            if (!gameBoard.CanMove())
             {
-                IsPlaying = false;
+                End();
             }
         }
 
         public void MoveTop()
         {
-            grid.MoveTop();
+            gameBoard.MoveTop();
             Move();
         }
 
         public void MoveRight()
         { 
-            grid.MoveRight();
+            gameBoard.MoveRight();
             Move();
         }
 
         public void MoveBottom()
         {
-            grid.MoveBottom();
+            gameBoard.MoveBottom();
             Move();
         }
 
         public void MoveLeft()
         {
-            grid.MoveLeft();
+            gameBoard.MoveLeft();
             Move();
         }
 
-        public ushort[,] GameBoard => grid.Grid;
-
+        public ushort[,] GameBoard => gameBoard.Grid;
     }
 }

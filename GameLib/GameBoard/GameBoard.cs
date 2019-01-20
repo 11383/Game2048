@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GameLib
 {
-    public class TilesGrid
+    public class GameBoard
     {
         // size horiznotall/vertiacal of grid
         private readonly byte size;
@@ -16,7 +16,7 @@ namespace GameLib
         // return if last move actually moved grid
         public bool isMoved = false;
 
-        public TilesGrid(byte size, byte baseNumber = 2)
+        public GameBoard(byte size = 4, byte baseNumber = 2)
         {
             if (size * baseNumber == 0)
             {
@@ -26,6 +26,12 @@ namespace GameLib
             this.size = size;
             this.baseNumber = baseNumber;
             this.Grid = new ushort[size, size];
+        }
+
+        // create gameboard from given grid
+        public GameBoard(ushort[,] grid, byte size = 4, byte baseNumber = 2) : this(size, baseNumber)
+        {
+            this.Grid = grid;
         }
 
         // Get list of coordinates of empty cells
@@ -74,26 +80,26 @@ namespace GameLib
 
         public void MoveTop()
         {
-            var moved = Utils.RotateMatrix(Grid, 3, false);
+            var moved = ArrayTransform.RotateMatrix(Grid, 3, false);
                 moved = CollapseLeft(moved);
 
-            Grid = Utils.RotateMatrix(moved, 3, true);
+            Grid = ArrayTransform.RotateMatrix(moved, 3, true);
         }
 
         public void MoveRight()
         {
-            var moved = Utils.FlipVertical(Grid);
+            var moved = ArrayTransform.FlipVertical(Grid);
                 moved = CollapseLeft(moved);
 
-            Grid = Utils.FlipVertical(moved);
+            Grid = ArrayTransform.FlipVertical(moved);
         }
 
         public void MoveBottom()
         {
-            var moved = Utils.RotateMatrix(Grid, 3, true);
+            var moved = ArrayTransform.RotateMatrix(Grid, 3, true);
                 moved = CollapseLeft(moved);
 
-            Grid = Utils.RotateMatrix(moved, 3, false);
+            Grid = ArrayTransform.RotateMatrix(moved, 3, false);
         }
 
         public void MoveLeft()

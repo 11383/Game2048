@@ -1,7 +1,7 @@
 ﻿using System;
 namespace GameLib
 {
-    public static class Utils
+    public static class ArrayTransform
     {
         public static T[,] RotateMatrix<T>(T[,] matrix, int n, bool r = true)
         {

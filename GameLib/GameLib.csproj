@@ -7,4 +7,10 @@
   <ItemGroup>
     <Compile Remove="Directions.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utils\" />
+    <Folder Include="Game\" />
+    <Folder Include="GameBoard\" />
+    <Folder Include="Score\" />
+  </ItemGroup>
 </Project>
