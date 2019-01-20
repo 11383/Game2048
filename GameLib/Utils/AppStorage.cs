@@ -47,8 +47,7 @@ namespace GameLib
             BinaryFormatter bf = new BinaryFormatter();
             FileStream fs = new FileStream(GetFilePath(fileName), FileMode.Create, FileAccess.Write);
             bf.Serialize(fs, objectToSave);
-
-            Console.WriteLine("Saved");
+            fs.Close();
         }
 
         public T Load<T>(string filePath)
@@ -56,8 +55,6 @@ namespace GameLib
             using (Stream stream = File.Open(GetFilePath(filePath), FileMode.Open))
             {
                 var binaryFormatter = new BinaryFormatter();
-
-                Console.WriteLine("Loaded");
 
                 return (T)binaryFormatter.Deserialize(stream);
             }
