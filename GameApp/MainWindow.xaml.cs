@@ -27,6 +27,13 @@ namespace GameApp
 
             canvas = cv_GameBoard;
 
+            Render();
+        }
+
+        private void Render()
+        {
+            canvas.Children.Clear();
+
             var gameBoard = GetBoard();
 
             //add tiles
@@ -39,9 +46,9 @@ namespace GameApp
         private Canvas GetBoard()
         {
             // calculate size for ratio 1:1
-            var size = canvas.Height < canvas.Width ? canvas.Height : canvas.Width;
-            var offsetX = (canvas.Width - size) / 2;
-            var offsetY = (canvas.Height - size) / 2;
+            var size = canvas.ActualHeight < canvas.ActualWidth ? canvas.ActualHeight : canvas.ActualWidth;
+            var offsetX = (canvas.ActualWidth - size) / 2;
+            var offsetY = (canvas.ActualHeight - size) / 2;
 
             // colors
             var bgColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#bbada0");
@@ -82,6 +89,11 @@ namespace GameApp
             item.Children.Add(myTextBlock);
 
             return item;
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Render();
         }
     }
 }
