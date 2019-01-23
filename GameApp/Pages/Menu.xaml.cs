@@ -16,13 +16,23 @@ using System.Windows.Shapes;
 namespace GameApp
 {
     /// <summary>
-    /// Logika interakcji dla klasy MainWindow.xaml
+    /// Logic for Menu page
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class PageMenu : Page
     {
-        public MainWindow()
+        public PageMenu()
         {
             InitializeComponent();
+        }
+
+        private void bt_StartGame(object sender, RoutedEventArgs e)
+        {
+            ComboBoxItem typeItem = (ComboBoxItem)cb_gameSize.SelectedItem;
+            ushort size = Convert.ToUInt16(typeItem.Tag.ToString());
+            
+            Page pageGame = new PageGame(size);
+            
+            NavigationService.Navigate(pageGame);
         }
     }
 }

@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="636.75" Width="605" FontFamily="/GameApp;component/Resources/#Clear Sans" FontWeight="Bold" SizeChanged="Window_SizeChanged">
-    <Grid Margin="10">
-        <Canvas x:Name="cv_GameBoard"/>
-    </Grid>
+        Title="MainWindow" Height="650" Width="600" FontFamily="/GameApp;component/Resources/#Clear Sans" FontWeight="Bold" MinWidth="320" MinHeight="320">
+    <Frame Content="Frame" Margin="10" Source="/GameApp;component/Pages/Menu.xaml" NavigationUIVisibility="Hidden" ClipToBounds="True"/>
+
 </Window>
