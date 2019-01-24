@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GameApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="600" FontFamily="/GameApp;component/Resources/#Clear Sans" FontWeight="Bold" MinWidth="320" MinHeight="320">
-    <Frame Content="Frame" Margin="10" Source="/GameApp;component/Pages/Menu.xaml" NavigationUIVisibility="Hidden" ClipToBounds="True"/>
+        Title="2048 Game" Height="650" Width="600" FontFamily="/GameApp;component/Resources/#Clear Sans" FontWeight="Bold" MinWidth="320" MinHeight="320"
+        Background="#FAF8EF">
+    <Frame Content="Frame" Source="/GameApp;component/Pages/Menu.xaml" NavigationUIVisibility="Hidden" ClipToBounds="True"/>
 
 </Window>
