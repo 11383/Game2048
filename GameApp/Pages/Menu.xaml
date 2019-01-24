@@ -3,17 +3,20 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:controls="clr-namespace:GameApp"
       mc:Ignorable="d"
       Title="Menu" MinWidth="300" MinHeight="300">
 
     <Grid>
-        <TextBlock Margin="0,35,0,0" TextWrapping="Wrap" Text="Main Menu" VerticalAlignment="Top" HorizontalAlignment="Center" Height="65" Foreground="#FF825830" FontSize="48"/>
-        <Button Content="Go to Game" Margin="0,200,0,0" VerticalAlignment="Top" Width="75" Click="bt_StartGame" HorizontalAlignment="Center" BorderBrush="#FFACACAC" Background="#FFE5E5E5"/>
-        <ComboBox x:Name="cb_gameSize" HorizontalAlignment="Center" Margin="0,141,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" Height="30" Padding="51,6,0,0" SelectionChanged="Cb_gameSize_SelectionChanged">
-            <ComboBoxItem Content="3x3" Padding="49,0,0,0" Tag="3"/>
-            <ComboBoxItem Content="4x4" Padding="49,0,0,0" Tag="4"/>
-            <ComboBoxItem Content="5x5" Padding="49,0,0,0" Tag="5"/>
-        </ComboBox>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition MinHeight="250"/>
+            <RowDefinition Height="120"/>
+        </Grid.RowDefinitions>
+        <TextBlock Margin="0,20" TextWrapping="Wrap" Text="Main Menu" Height="65" Foreground="#FF825830" FontSize="48" HorizontalAlignment="Center"/>
+        
+        <controls:ImageSelect x:Name="img_select" Grid.Row="1" MaxWidth="600" MaxHeight="650" MinHeight="0" MinWidth="0" Margin="50,0"/>
 
+        <Button Content="Go to Game" Margin="0,30" VerticalAlignment="Center" Width="75" Click="bt_StartGame" HorizontalAlignment="Center" BorderBrush="#FFACACAC" Background="#FFE5E5E5" Grid.Row="2"/>
     </Grid>
 </Page>

@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Icon="./Resources/2048.png"
         mc:Ignorable="d"
-        Title="2048 Game" Height="650" Width="600" FontFamily="/GameApp;component/Resources/#Clear Sans" FontWeight="Bold" MinWidth="320" MinHeight="320"
+        Title="2048 Game" Height="650" Width="600" FontFamily="/GameApp;component/Resources/#Clear Sans" FontWeight="Bold" MinWidth="500" MinHeight="600"
         Background="#FAF8EF">
-    <Frame Content="Frame" Source="/GameApp;component/Pages/Menu.xaml" NavigationUIVisibility="Hidden" ClipToBounds="True"/>
+    <Frame Content="Frame" Source="/GameApp;component/Pages/Menu.xaml" NavigationUIVisibility="Hidden" ClipToBounds="True" MinWidth="350" MinHeight="500"/>
 
 </Window>

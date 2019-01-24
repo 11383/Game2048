@@ -23,14 +23,17 @@ namespace GameApp
         public PageMenu()
         {
             InitializeComponent();
+            
+            img_select.SetImages(new Tuple<Uri, string>[] {
+                new Tuple<Uri, string>( new Uri(@"/Resources/grid-3x3.png", UriKind.RelativeOrAbsolute), "3x3"),
+                new Tuple<Uri, string>( new Uri(@"/Resources/grid-4x4.png", UriKind.RelativeOrAbsolute), "4x4"),
+                new Tuple<Uri, string>( new Uri(@"/Resources/grid-5x5.png", UriKind.RelativeOrAbsolute), "5x5")
+            });
         }
 
         private void bt_StartGame(object sender, RoutedEventArgs e)
         {
-            ComboBoxItem typeItem = (ComboBoxItem)cb_gameSize.SelectedItem;
-            ushort size = Convert.ToUInt16(typeItem.Tag.ToString());
-            
-            Page pageGame = new PageGame(size);
+            Page pageGame = new PageGame((ushort) (img_select.Index + 3));
             
             NavigationService.Navigate(pageGame);
         }
