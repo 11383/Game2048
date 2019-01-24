@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="GameApp.ImageSelect"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GameApp"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Width="Auto" Height="Auto" MinWidth="300" MinHeight="350">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition MaxHeight="50"/>
+        </Grid.RowDefinitions>
+        <Image x:Name="img_Preview" Margin="20" Source="/GameApp;component/Resources/grid-5x5.png"/>
+        <Grid Margin="0" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Content="" Margin="0" MaxHeight="24" BorderThickness="0" Click="bt_Previous">
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="/GameApp;component/Resources/imageselect-left.png"/>
+                </Button.Background>
+            </Button>
+
+            <Button Content="" Margin="0" Grid.Column="2" MaxHeight="24" BorderThickness="0" Click="bt_Next">
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="/GameApp;component/Resources/imageselect-right.png"/>
+                </Button.Background>
+            </Button>
+            <TextBlock x:Name="tb_Name" Grid.Column="1" Margin="0" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="/GameApp;component/Resources/#Clear Sans" FontSize="18" FontWeight="Bold" Foreground="Black"/>
+        </Grid>
+
+    </Grid>
+</UserControl>
