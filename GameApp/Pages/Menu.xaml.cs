@@ -37,7 +37,6 @@ namespace GameApp
 
         private void Cb_gameSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
         }
     }
 }

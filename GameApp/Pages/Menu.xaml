@@ -7,7 +7,7 @@
       Title="Menu" MinWidth="300" MinHeight="300">
 
     <Grid>
-        <TextBlock Margin="0,35,0,0" TextWrapping="Wrap" Text="Main Menu" VerticalAlignment="Top" HorizontalAlignment="Center" Height="65" Foreground="#FF7D5C3C" FontSize="48"/>
+        <TextBlock Margin="0,35,0,0" TextWrapping="Wrap" Text="Main Menu" VerticalAlignment="Top" HorizontalAlignment="Center" Height="65" Foreground="#FF825830" FontSize="48"/>
         <Button Content="Go to Game" Margin="0,200,0,0" VerticalAlignment="Top" Width="75" Click="bt_StartGame" HorizontalAlignment="Center" BorderBrush="#FFACACAC" Background="#FFE5E5E5"/>
         <ComboBox x:Name="cb_gameSize" HorizontalAlignment="Center" Margin="0,141,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" Height="30" Padding="51,6,0,0" SelectionChanged="Cb_gameSize_SelectionChanged">
             <ComboBoxItem Content="3x3" Padding="49,0,0,0" Tag="3"/>
