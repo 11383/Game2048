@@ -34,5 +34,10 @@ namespace GameApp
             
             NavigationService.Navigate(pageGame);
         }
+
+        private void Cb_gameSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
