@@ -3,8 +3,9 @@ namespace GameLib
 {
     public static class ArrayTransform
     {
-        public static T[,] RotateMatrix<T>(T[,] matrix, int n, bool r = true)
+        public static T[,] RotateMatrix<T>(T[,] matrix, bool r = true)
         {
+            int n = matrix.GetLength(0);
             T[,] ret = new T[n, n];
 
             for (int i = 0; i < n; i++)

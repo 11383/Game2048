@@ -12,10 +12,10 @@ namespace GameLib
         // Move to top
         public void MoveTop()
         {
-            var moved = ArrayTransform.RotateMatrix(Grid, 3, false);
+            var moved = ArrayTransform.RotateMatrix(Grid, false);
             moved = CollapseLeft(moved);
 
-            Grid = ArrayTransform.RotateMatrix(moved, 3, true);
+            Grid = ArrayTransform.RotateMatrix(moved, true);
         }
 
         // Move to right
@@ -30,10 +30,10 @@ namespace GameLib
         // Move to bottom
         public void MoveBottom()
         {
-            var moved = ArrayTransform.RotateMatrix(Grid, 3, true);
+            var moved = ArrayTransform.RotateMatrix(Grid, true);
             moved = CollapseLeft(moved);
 
-            Grid = ArrayTransform.RotateMatrix(moved, 3, false);
+            Grid = ArrayTransform.RotateMatrix(moved, false);
         }
 
         // Move to left
