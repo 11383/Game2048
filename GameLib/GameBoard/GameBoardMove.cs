@@ -1,11 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace GameLib
 {
     public partial class GameBoard
     {
+        // return if last move actually moved grid
+        public bool isMoved = false;
+        // List of merged values after last move
+        public List<ushort> lastMergedValues = new List<ushort>();
+
+        // Move to top
         public void MoveTop()
         {
             var moved = ArrayTransform.RotateMatrix(Grid, 3, false);
@@ -14,6 +18,7 @@ namespace GameLib
             Grid = ArrayTransform.RotateMatrix(moved, 3, true);
         }
 
+        // Move to right
         public void MoveRight()
         {
             var moved = ArrayTransform.FlipVertical(Grid);
@@ -22,6 +27,7 @@ namespace GameLib
             Grid = ArrayTransform.FlipVertical(moved);
         }
 
+        // Move to bottom
         public void MoveBottom()
         {
             var moved = ArrayTransform.RotateMatrix(Grid, 3, true);
@@ -30,11 +36,13 @@ namespace GameLib
             Grid = ArrayTransform.RotateMatrix(moved, 3, false);
         }
 
+        // Move to left
         public void MoveLeft()
         {
             Grid = CollapseLeft(Grid);
         }
 
+        // Check available moves
         public bool CanMove()
         {
             if (GetEmptyTilesPos().Count > 0)
@@ -64,7 +72,10 @@ namespace GameLib
         // merge tiles from right to left of given grid and return new merged array
         private ushort[,] CollapseLeft(ushort[,] grid)
         {
+            // clear lastMergedValues && transforms from last move
             lastMergedValues.Clear();
+            ClearTransforms();
+
             ushort[,] merged = new ushort[size, size];
             isMoved = false;
 
@@ -85,7 +96,10 @@ namespace GameLib
                     {
                         merged[i, j - offset] = grid[i, j];
 
-                        if (offset != 0) { isMoved = true; }
+                        if (offset != 0)
+                        {
+                            SetMoved(i, j - offset, i, j);
+                        }
 
                         // we can add value to this block next time, so:
                         offset++;
@@ -99,7 +113,7 @@ namespace GameLib
                         lastMergedValues.Add(merged[i, j - offset]);
 
                         // we moved block, so:
-                        isMoved = true;
+                        SetMoved(i, j - offset, i, j, true);
                     }
                     // we can't add block to block with diffrent value
                     // so add to the next one (offset-1)
@@ -110,13 +124,22 @@ namespace GameLib
                         // we moved block, so
                         if (offset != 1)
                         {
-                            isMoved = true;
+                            SetMoved(i, j - offset + 1, i, j);
                         }
                     }
                 }
             }
 
             return merged;
+        }
+
+        // Set flag that one of blocks has moved
+        private void SetMoved(int x, int y, int lastX, int lastY, bool merged = false)
+        {
+            isMoved = true;
+
+            // Log this action (block moved|translated) to tranforms
+            AddTransform(x, y, lastX, lastY, merged ? TransformType.Merge : TransformType.Tranlate);
         }
     }
 }

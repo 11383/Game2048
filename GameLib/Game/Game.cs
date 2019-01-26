@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using static GameLib.GameBoard;
 
 namespace GameLib
 {
@@ -115,5 +117,7 @@ namespace GameLib
         }
 
         public ushort[,] GameBoard => gameBoard.Grid;
+
+        public List<GameTranform> LastTransforms => gameBoard.Transforms();
     }
 }

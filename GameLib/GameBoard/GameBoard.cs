@@ -9,12 +9,8 @@ namespace GameLib
         private readonly byte size;
         // number used to spawn new Tile
         private readonly byte baseNumber;
-        // List of merged values after last move
-        public List<ushort> lastMergedValues = new List<ushort>();
         // return actual state of Grid
         public ushort[,] Grid { get; private set; }
-        // return if last move actually moved grid
-        public bool isMoved = false;
 
         public GameBoard(byte size = 4, byte baseNumber = 2)
         {
@@ -57,6 +53,9 @@ namespace GameLib
         {
             // Fill picked tile with value:
             Grid[x, y] = (ushort) value;
+
+            // log action (create new block) to transforms
+            AddTransform(x, y, x, y, TransformType.New);
         }
 
         public void SpawnTile()

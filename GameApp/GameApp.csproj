@@ -128,5 +128,11 @@
     <Resource Include="Resources\grid-4x4.png" />
     <Resource Include="Resources\grid-5x5.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameLib\GameLib.csproj">
+      <Project>{75815fad-cc5e-4e19-9e63-0c3d92f25bcc}</Project>
+      <Name>GameLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

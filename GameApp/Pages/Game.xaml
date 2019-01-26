@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:GameApp"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Game">
+      Title="Game" Focusable="True">
 
     <Grid Margin="10" Background="White">
         <Canvas x:Name="cv_GameBoard" ClipToBounds="True" SizeChanged="page_SizeChanged"/>
