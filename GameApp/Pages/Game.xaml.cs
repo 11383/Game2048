@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,15 +24,50 @@ namespace GameApp
         private ushort size;
         private Canvas canvas;
 
+        private Game game;
+
+        private int margin = 10;
+        private int tileSize = 100;
+
         public PageGame(ushort size)
         {
-            this.size = size;
-
-            Console.WriteLine($"size: {size}");
-
             InitializeComponent();
+            Focus();
+            InitGame(size);
 
             canvas = cv_GameBoard;
+            Render();
+        }
+
+        private void InitGame(ushort size)
+        {
+            this.size = size;
+            this.game = new Game((byte)size, 2, 2048);
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+            
+            switch (e.Key)
+            {
+                case Key.A:
+                    game.MoveLeft();
+                    break;
+
+                case Key.D:
+                    game.MoveRight();
+                    break;
+
+                case Key.W:
+                    game.MoveTop();
+                    break;
+
+                case Key.S:
+                    game.MoveBottom();
+                    break;
+            }
+
             Render();
         }
 
@@ -41,9 +77,19 @@ namespace GameApp
 
             var gameBoard = GetBoard();
 
-            //add tiles
-            gameBoard.Children.Add(GetTiles(10.0, 10.0, "1024"));
-            gameBoard.Children.Add(GetTiles(120.0, 10.0, "256"));
+            for(int i=0; i < size; i++)
+            {
+                for(int j=0; j < size; j++)
+                {
+                    /**
+                     * todo: on constructor and pageChange calculate tileSize
+                     * todo: make diffrent text color and background color for diffrent tiles values 2,4,8,16,32,64,128,256,512,1024,2048,4096, and other
+                     */
+                    gameBoard.Children.Add(
+                        GetTiles(i * tileSize + (i+1) * margin, j * tileSize + (j+1) * margin, game.GameBoard[j, i].ToString())
+                    );
+                }
+            }
 
             canvas.Children.Add(gameBoard);
         }
