@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace GameLib
 {
@@ -33,5 +34,48 @@ namespace GameLib
 
         /* Get list of transforms since last move */
         public List<GameTranform> Transforms() => transforms;
+
+        private List<GameTranform> MakeTransform(List<GameTranform> source, Func<GameTranform, GameTranform> p)
+        {
+            var result = new List<GameTranform>();
+
+            source.ForEach(item => { result.Add(p(item)); });
+
+            return result;
+
+        }
+
+        private void TransformRight()
+        {
+            transforms = MakeTransform(transforms, (item) => {
+                Utils.Common.Swap(ref item.X, ref item.LastX);
+
+                return item;
+            });
+        }
+
+        private void TransformTop()
+        {
+            transforms = MakeTransform(transforms, (item) =>
+            {
+                Utils.Common.Swap(ref item.Y, ref item.X);
+                Utils.Common.Swap(ref item.LastY, ref item.LastX);
+
+                return item;
+            });
+        }
+
+        private void TransformBottom()
+        {
+            transforms = MakeTransform(transforms, item =>
+            {
+                Utils.Common.Swap(ref item.Y, ref item.LastX);
+                Utils.Common.Swap(ref item.LastY, ref item.X);
+
+                return item;
+            });
+        }
+
+
     }
 }

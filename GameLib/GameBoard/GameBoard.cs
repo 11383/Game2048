@@ -49,10 +49,10 @@ namespace GameLib
             return result;
         }
 
-        private void AddTile(byte x, byte y, ushort value)
+        private void AddTile(byte y, byte x, ushort value)
         {
             // Fill picked tile with value:
-            Grid[x, y] = (ushort) value;
+            Grid[y, x] = (ushort) value;
 
             // log action (create new block) to transforms
             AddTransform(x, y, x, y, TransformType.New);

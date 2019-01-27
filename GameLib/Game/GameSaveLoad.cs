@@ -45,10 +45,10 @@ namespace GameLib
         {
             // save game state
             var saveObj = new GameSaveLoadStruct(gameBoard.Grid, score.Score);
-            appStorage.Save<GameSaveLoadStruct>(saveObj, GameSaveFileName);
+            appStorage.Save(saveObj, GameSaveFileName);
 
             // save highscore
-            appStorage.Save<int>(Highscore, GameSaveHighScoreFileName);
+            appStorage.Save(Highscore, GameSaveHighScoreFileName);
         }
 
         private void SaveRemove()

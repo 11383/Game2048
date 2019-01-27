@@ -16,6 +16,9 @@ namespace GameLib
             moved = CollapseLeft(moved);
 
             Grid = ArrayTransform.RotateMatrix(moved, true);
+
+            // transform GameTransforms from left direction to right
+            TransformTop();
         }
 
         // Move to right
@@ -25,6 +28,9 @@ namespace GameLib
             moved = CollapseLeft(moved);
 
             Grid = ArrayTransform.FlipVertical(moved);
+
+            // transform GameTransforms from left direction to right
+            TransformRight();
         }
 
         // Move to bottom
@@ -34,6 +40,9 @@ namespace GameLib
             moved = CollapseLeft(moved);
 
             Grid = ArrayTransform.RotateMatrix(moved, false);
+
+            // transform GameTransforms from left direction to right
+            TransformBottom();
         }
 
         // Move to left
@@ -134,7 +143,7 @@ namespace GameLib
         }
 
         // Set flag that one of blocks has moved
-        private void SetMoved(int x, int y, int lastX, int lastY, bool merged = false)
+        private void SetMoved(int y, int x, int lastY, int lastX, bool merged = false)
         {
             isMoved = true;
 
