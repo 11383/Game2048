@@ -77,17 +77,43 @@ namespace GameApp
 
             var gameBoard = GetBoard();
 
-            for(int i=0; i < size; i++)
+            var textColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#776e65");
+            var bgColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#eee4da");
+
+            for (int i=0; i < size; i++)
             {
                 for(int j=0; j < size; j++)
                 {
                     /**
                      * todo: on constructor and pageChange calculate tileSize
-                     * todo: make diffrent text color and background color for diffrent tiles values 2,4,8,16,32,64,128,256,512,1024,2048,4096, and other
                      */
-                    gameBoard.Children.Add(
-                        GetTiles(i * tileSize + (i+1) * margin, j * tileSize + (j+1) * margin, game.GameBoard[j, i].ToString())
-                    );
+                    int number = game.GameBoard[j, i];
+
+                    switch(number)
+                    {
+                        case 2: case 4: // dark tile foreground + specific bachground
+                            bgColor = (SolidColorBrush)GetApplicationResourceDictionary()["N" + number + "BackgroundTileColorBrush"];
+                            textColor = (SolidColorBrush)GetApplicationResourceDictionary()["DarkTileForegroundColorBrush"];
+                            gameBoard.Children.Add(
+                                GetTiles(i * tileSize + (i + 1) * margin, j * tileSize + (j + 1) * margin, game.GameBoard[j, i].ToString(), bgColor, textColor)
+                            );
+                            break;
+                        case 8: case 16: case 32: case 64: case 128: case 256: case 512: case 1024: case 2048: 
+                            bgColor = (SolidColorBrush)GetApplicationResourceDictionary()["N" + number + "BackgroundTileColorBrush"];
+                            textColor = (SolidColorBrush)GetApplicationResourceDictionary()["LightTileForegroundColorBrush"];
+                            gameBoard.Children.Add(
+                                GetTiles(i * tileSize + (i + 1) * margin, j * tileSize + (j + 1) * margin, game.GameBoard[j, i].ToString(), bgColor, textColor)
+                            );
+                            break;
+                        default: // white foreground + black background
+                            bgColor = new SolidColorBrush(Colors.Black);
+                            textColor = new SolidColorBrush(Colors.White);
+                            gameBoard.Children.Add(
+                                GetTiles(i * tileSize + (i + 1) * margin, j * tileSize + (j + 1) * margin, game.GameBoard[j, i].ToString(), bgColor, textColor)
+                            );
+                            break;
+
+                    }
                 }
             }
 
@@ -118,13 +144,13 @@ namespace GameApp
             return item;
         }
 
-        private Grid GetTiles(Double x, Double y, string text)
+        private Grid GetTiles(Double x, Double y, string text, string bgC, string tC)
         {
             int width = 100, height = 100, fontSize = 30;
 
             // colors
-            var textColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#776e65");
-            var bgColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#eee4da");
+            var textColor = (SolidColorBrush)new BrushConverter().ConvertFrom(tC);
+            var bgColor = (SolidColorBrush)new BrushConverter().ConvertFrom(bgC);
 
             // container
             var item = new Grid { Width = width, Height = height };
@@ -147,6 +173,11 @@ namespace GameApp
         private void page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             Render();
+        }
+
+        public static ResourceDictionary GetApplicationResourceDictionary() // returns instance of application's resource dictionary
+        {
+            return Application.Current.Resources;
         }
     }
 }
