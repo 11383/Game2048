@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:GameApp"
       mc:Ignorable="d" 
       d:DesignHeight="850" d:DesignWidth="400"
-      Title="Game">
+      Title="Game" Focusable="True">
 
     <Grid Margin="10,100,10,10">
         <Grid.ColumnDefinitions>
