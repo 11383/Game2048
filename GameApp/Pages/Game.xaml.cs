@@ -25,6 +25,8 @@ namespace GameApp
         private Canvas canvas;
 
         private Game game;
+        private Game score;
+        private Game highscore;
 
         private int margin = 10;
         private int tileSize = 100;
@@ -77,16 +79,17 @@ namespace GameApp
 
             var gameBoard = GetBoard();
 
-            var textColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#776e65");
-            var bgColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#eee4da");
-
+            var textColor = (SolidColorBrush)GetApplicationResourceDictionary()["TextColorBrush"];
+            var bgColor = (SolidColorBrush)GetApplicationResourceDictionary()["BackgroundColorBrush"];
+            
             for (int i=0; i < size; i++)
             {
                 for(int j=0; j < size; j++)
                 {
                     /**
-                     * todo: on constructor and pageChange calculate tileSize
+                     * todo: on constructor and pageChange calculate tileSize //Szerokość(canvas - marginy kafelków)/ ilość kafelków
                      */
+
                     int number = game.GameBoard[j, i];
 
                     switch(number)
@@ -95,21 +98,21 @@ namespace GameApp
                             bgColor = (SolidColorBrush)GetApplicationResourceDictionary()["N" + number + "BackgroundTileColorBrush"];
                             textColor = (SolidColorBrush)GetApplicationResourceDictionary()["DarkTileForegroundColorBrush"];
                             gameBoard.Children.Add(
-                                GetTiles(i * tileSize + (i + 1) * margin, j * tileSize + (j + 1) * margin, game.GameBoard[j, i].ToString(), bgColor, textColor)
+                                GetTiles(i * tileSize + (i + 1) * margin, j * tileSize + (j + 1) * margin, game.GameBoard[j, i].ToString(), bgColor.ToString(), textColor.ToString())
                             );
                             break;
                         case 8: case 16: case 32: case 64: case 128: case 256: case 512: case 1024: case 2048: 
                             bgColor = (SolidColorBrush)GetApplicationResourceDictionary()["N" + number + "BackgroundTileColorBrush"];
                             textColor = (SolidColorBrush)GetApplicationResourceDictionary()["LightTileForegroundColorBrush"];
                             gameBoard.Children.Add(
-                                GetTiles(i * tileSize + (i + 1) * margin, j * tileSize + (j + 1) * margin, game.GameBoard[j, i].ToString(), bgColor, textColor)
+                                GetTiles(i * tileSize + (i + 1) * margin, j * tileSize + (j + 1) * margin, game.GameBoard[j, i].ToString(), bgColor.ToString(), textColor.ToString())
                             );
                             break;
                         default: // white foreground + black background
-                            bgColor = new SolidColorBrush(Colors.Black);
+                            bgColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#CDC1B4");
                             textColor = new SolidColorBrush(Colors.White);
                             gameBoard.Children.Add(
-                                GetTiles(i * tileSize + (i + 1) * margin, j * tileSize + (j + 1) * margin, game.GameBoard[j, i].ToString(), bgColor, textColor)
+                                GetTiles(i * tileSize + (i + 1) * margin, j * tileSize + (j + 1) * margin, game.GameBoard[j, i].ToString(), bgColor.ToString(), textColor.ToString())
                             );
                             break;
 
@@ -141,10 +144,12 @@ namespace GameApp
             item.SetValue(Canvas.LeftProperty, offsetX);
             item.SetValue(Canvas.TopProperty, offsetY);
 
+            Console.WriteLine(item);
+
             return item;
         }
 
-        private Grid GetTiles(Double x, Double y, string text, string bgC, string tC)
+        private Grid GetTiles(Double x, Double y, string text, String bgC, String tC)
         {
             int width = 100, height = 100, fontSize = 30;
 
@@ -175,6 +180,13 @@ namespace GameApp
             Render();
         }
 
+        /*private Grid GetScore(byte score)
+        {
+            this.score = new Game(score);
+
+            var ScoreTextBlock = new TextBlock { };
+        }
+        */
         public static ResourceDictionary GetApplicationResourceDictionary() // returns instance of application's resource dictionary
         {
             return Application.Current.Resources;
