@@ -4,6 +4,22 @@
              xmlns:local="clr-namespace:GameApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <SolidColorBrush x:Key="TextColorBrush" Color="#776E65" />
+        <SolidColorBrush x:Key="BackgroundColorBrush" Color="#EEE4DA" />
+        
+        <SolidColorBrush x:Key="DarkTileForegroundColorBrush" Color="#776E65" />
+        <SolidColorBrush x:Key="LightTileForegroundColorBrush" Color="White" />
+
+        <SolidColorBrush x:Key="N2BackgroundTileColorBrush" Color="#EEE4DA" />
+        <SolidColorBrush x:Key="N4BackgroundTileColorBrush" Color="#EDE0C8" />
+        <SolidColorBrush x:Key="N8BackgroundTileColorBrush" Color="#F2B179" />
+        <SolidColorBrush x:Key="N16BackgroundTileColorBrush" Color="#F59563" />
+        <SolidColorBrush x:Key="N32BackgroundTileColorBrush" Color="#F67C5F" />
+        <SolidColorBrush x:Key="N64BackgroundTileColorBrush" Color="#F65E3B" />
+        <SolidColorBrush x:Key="N128BackgroundTileColorBrush" Color="#EDCF72" />
+        <SolidColorBrush x:Key="N256BackgroundTileColorBrush" Color="#EDCC61" />
+        <SolidColorBrush x:Key="N512BackgroundTileColorBrush" Color="#ECC850" />
+        <SolidColorBrush x:Key="N1024BackgroundTileColorBrush" Color="#EDC53F" />
+        <SolidColorBrush x:Key="N2048BackgroundTileColorBrush" Color="#EEC22E" />
     </Application.Resources>
 </Application>
