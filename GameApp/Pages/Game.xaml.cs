@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace GameApp
@@ -32,6 +33,18 @@ namespace GameApp
         {
             this.size = size;
             this.game = new Game((byte)size, 2, 2048);
+        }
+
+        private void bt_MainMenu(object sender, RoutedEventArgs e)
+        {
+            NavigationService nav = NavigationService.GetNavigationService(this);
+            nav.Navigate(new Uri("Pages/Menu.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void bt_Restart(object sender, RoutedEventArgs e)
+        {
+            game.Restart();
+            Render();
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -78,7 +91,7 @@ namespace GameApp
                 for(int j=0; j < size; j++)
                 {
                     int value = game.GameBoard[j, i];
-                    Object textColor, bgColor;
+                    object textColor, bgColor;
 
                     switch(value)
                     {
