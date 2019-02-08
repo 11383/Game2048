@@ -33,6 +33,9 @@ namespace GameApp
         {
             this.size = size;
             this.game = new Game((byte)size, 2, 2048);
+
+            sb_score.SetLabel("Score");
+            sb_highScore.SetLabel("Highscore");
         }
 
         private void bt_MainMenu(object sender, RoutedEventArgs e)
@@ -122,6 +125,8 @@ namespace GameApp
             }
 
             canvas.Children.Add(gameBoard);
+
+            UpdateScoreBoards();
 
             if (!game.IsPlaying)
             {
@@ -213,6 +218,12 @@ namespace GameApp
         public static ResourceDictionary GetApplicationResourceDictionary() // returns instance of application's resource dictionary
         {
             return Application.Current.Resources;
+        }
+
+        private void UpdateScoreBoards()
+        {
+            sb_score.SetScore(game.Score);
+            sb_highScore.SetScore(game.Highscore);
         }
     }
 }
