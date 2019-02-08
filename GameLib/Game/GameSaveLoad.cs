@@ -10,20 +10,24 @@ namespace GameLib
 
         //private bool CanLoad() => !appStorage.Exists(GameSaveFileName);
 
+        /// <summary>
+        /// Try to load highscore from saved file
+        /// </summary>
         private void LoadHighscore() 
         {
-            // try to load highscore from saved file
             if (appStorage.Exists(GameSaveHighScoreFileName))
             {
                 score = new GameScore(0, appStorage.Load<int>(GameSaveHighScoreFileName));
             }
         }
 
+        /// <summary>
+        /// Load game data
+        /// </summary>
         private bool Load()
         {
             LoadHighscore();
 
-            //load gameData
             if (!appStorage.Exists(GameSaveFileName))
             {
                 return false;
@@ -41,16 +45,20 @@ namespace GameLib
             return true;
         }
 
+        /// <summary>
+        /// Save game state and highscore
+        /// </summary>
         private void Save()
         {
-            // save game state
             var saveObj = new GameSaveLoadStruct(gameBoard.Grid, score.Score);
             appStorage.Save(saveObj, GameSaveFileName);
 
-            // save highscore
             appStorage.Save(Highscore, GameSaveHighScoreFileName);
         }
 
+        /// <summary>
+        /// Remove saved game
+        /// </summary>
         private void SaveRemove()
         {
             appStorage.Clear(GameSaveFileName);

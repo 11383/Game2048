@@ -31,21 +31,33 @@ namespace GameLib
             }
         }
 
+        /// <summary>
+        /// Move blocks top
+        /// </summary>
         public void MoveTop()
         {
             DoMove(gameBoard.MoveTop);
         }
 
+        /// <summary>
+        /// Move blocks right
+        /// </summary>
         public void MoveRight()
         {
             DoMove(gameBoard.MoveRight);
         }
 
+        /// <summary>
+        /// Move blocks bottom
+        /// </summary>
         public void MoveBottom()
         {
             DoMove(gameBoard.MoveBottom);
         }
 
+        /// <summary>
+        /// Move blocks left
+        /// </summary>
         public void MoveLeft()
         {
             DoMove(gameBoard.MoveLeft);

@@ -17,7 +17,14 @@ namespace GameLib
 
         private List<GameTranform> transforms = new List<GameTranform>();
 
-        /* Add transform created in current move */
+        /// <summary>
+        /// Add transform created in current move
+        /// </summary>
+        /// <param name="x">Current block position</param>
+        /// <param name="y">Current block position</param>
+        /// <param name="lastX">Last block position before the move</param>
+        /// <param name="lastY">Last block position before the move</param>
+        /// <param name="type">Type of transform</param>
         private void AddTransform(int x, int y, int lastX, int lastY, TransformType type)
         {
             transforms.Add(new GameTranform {
@@ -29,10 +36,14 @@ namespace GameLib
             });
         }
 
-        /* Clear transforms */
+        /// <summary>
+        /// Clear transform
+        /// </summary>
         private void ClearTransforms() => transforms.Clear();
 
-        /* Get list of transforms since last move */
+        /// <summary>
+        /// Get list of transforms since last move
+        /// </summary>
         public List<GameTranform> Transforms() => transforms;
 
         private List<GameTranform> MakeTransform(List<GameTranform> source, Func<GameTranform, GameTranform> p)
@@ -48,7 +59,8 @@ namespace GameLib
         private void TransformRight()
         {
             transforms = MakeTransform(transforms, (item) => {
-                Utils.Common.Swap(ref item.X, ref item.LastX);
+                item.X = size - item.X - 1;
+                item.LastX = size - item.LastX - 1;
 
                 return item;
             });
@@ -60,6 +72,8 @@ namespace GameLib
             {
                 Utils.Common.Swap(ref item.Y, ref item.X);
                 Utils.Common.Swap(ref item.LastY, ref item.LastX);
+                item.X = size - item.X - 1;
+                item.LastX = size - item.LastX - 1;
 
                 return item;
             });
@@ -69,8 +83,10 @@ namespace GameLib
         {
             transforms = MakeTransform(transforms, item =>
             {
-                Utils.Common.Swap(ref item.Y, ref item.LastX);
-                Utils.Common.Swap(ref item.LastY, ref item.X);
+                Utils.Common.Swap(ref item.Y, ref item.X);
+                Utils.Common.Swap(ref item.LastY, ref item.LastX);
+                item.Y = size - item.Y - 1;
+                item.LastY = size - item.LastY - 1;
 
                 return item;
             });

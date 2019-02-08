@@ -8,15 +8,21 @@ namespace GameLib
     {
         enum GameMode { Arcade, Free};
 
-        // value, that decides when user win the game in 'Arcade Mode'
+        /// <summary>
+        /// Value, that decides when user win the game in 'Arcade Mode'
+        /// </summary>
         private readonly ushort successValue;
         private readonly byte baseValue;
-        // size of grid 
+        /// <summary>
+        /// Size of grid 
+        /// </summary>
         private readonly byte size;
         private GameBoard gameBoard;
         private GameMode mode;
 
-        // score
+        /// <summary>
+        /// User score
+        /// </summary>
         private GameScore score;
         public int Score => score.Score;
         public int Highscore => score.Highscore;

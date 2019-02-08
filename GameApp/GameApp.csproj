@@ -59,6 +59,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Components\ScoreBoard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Game.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -73,6 +77,9 @@
     </Compile>
     <Compile Include="Components\ImageSelect.xaml.cs">
       <DependentUpon>ImageSelect.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\ScoreBoard.xaml.cs">
+      <DependentUpon>ScoreBoard.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Game.xaml.cs">
       <DependentUpon>Game.xaml</DependentUpon>
@@ -133,6 +140,12 @@
       <Project>{75815fad-cc5e-4e19-9e63-0c3d92f25bcc}</Project>
       <Name>GameLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\repeat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\menu.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
