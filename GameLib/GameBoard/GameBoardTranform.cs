@@ -20,11 +20,11 @@ namespace GameLib
         /// <summary>
         /// Add transform created in current move
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="lastX"></param>
-        /// <param name="lastY"></param>
-        /// <param name="type"></param>
+        /// <param name="x">Current block position</param>
+        /// <param name="y">Current block position</param>
+        /// <param name="lastX">Last block position before the move</param>
+        /// <param name="lastY">Last block position before the move</param>
+        /// <param name="type">Type of transform</param>
         private void AddTransform(int x, int y, int lastX, int lastY, TransformType type)
         {
             transforms.Add(new GameTranform {
