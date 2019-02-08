@@ -14,5 +14,16 @@
             <ColumnDefinition Width="87*"/>
         </Grid.ColumnDefinitions>
         <Canvas x:Name="cv_GameBoard" ClipToBounds="True" SizeChanged="page_SizeChanged" Margin="0,0,0,-0.4" Grid.ColumnSpan="2"/>
+        
+        <Button Content="" MaxHeight="40" Grid.Row="1" Grid.Column="0" BorderThickness="0" Margin="73,-74,90.4,771.6">
+            <Button.Background>
+                <ImageBrush Stretch="Uniform" ImageSource="/GameApp;component/Resources/repeat.png"/>
+            </Button.Background>
+        </Button>
+        <Button Content="" MaxHeight="40" Grid.Row="1" Grid.Column="0" BorderThickness="0" Margin="12,-74,151.4,771.6">
+            <Button.Background>
+                <ImageBrush Stretch="Uniform" ImageSource="/GameApp;component/Resources/menu.png"/>
+            </Button.Background>
+        </Button>
     </Grid>
 </Page>

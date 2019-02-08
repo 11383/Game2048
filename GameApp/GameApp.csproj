@@ -134,5 +134,11 @@
       <Name>GameLib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\repeat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\menu.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
