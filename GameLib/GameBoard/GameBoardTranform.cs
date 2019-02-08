@@ -17,7 +17,14 @@ namespace GameLib
 
         private List<GameTranform> transforms = new List<GameTranform>();
 
-        /* Add transform created in current move */
+        /// <summary>
+        /// Add transform created in current move
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="lastX"></param>
+        /// <param name="lastY"></param>
+        /// <param name="type"></param>
         private void AddTransform(int x, int y, int lastX, int lastY, TransformType type)
         {
             transforms.Add(new GameTranform {
@@ -29,10 +36,14 @@ namespace GameLib
             });
         }
 
-        /* Clear transforms */
+        /// <summary>
+        /// Clear transform
+        /// </summary>
         private void ClearTransforms() => transforms.Clear();
 
-        /* Get list of transforms since last move */
+        /// <summary>
+        /// Get list of transforms since last move
+        /// </summary>
         public List<GameTranform> Transforms() => transforms;
 
         private List<GameTranform> MakeTransform(List<GameTranform> source, Func<GameTranform, GameTranform> p)
