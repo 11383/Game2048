@@ -21,7 +21,7 @@ namespace GameLib
             if (gameBoard.isMoved)
             {
                 gameBoard.SpawnTile();
-
+                
                 Save();
             }
 
@@ -33,26 +33,37 @@ namespace GameLib
 
         public void MoveTop()
         {
-            gameBoard.MoveTop();
-            Move();
+            DoMove(gameBoard.MoveTop);
         }
 
         public void MoveRight()
         {
-            gameBoard.MoveRight();
-            Move();
+            DoMove(gameBoard.MoveRight);
         }
 
         public void MoveBottom()
         {
-            gameBoard.MoveBottom();
-            Move();
+            DoMove(gameBoard.MoveBottom);
         }
 
         public void MoveLeft()
         {
-            gameBoard.MoveLeft();
+            DoMove(gameBoard.MoveLeft);
+        }
+
+        private void DoMove(Action action)
+        {
+            var stateBeforeMove = new GameSaveLoadStruct(gameBoard.Grid, score.Score);
+
+            action();
             Move();
+
+            // add snapshot to undoRedo
+            if (gameBoard.isMoved)
+            {
+                AddStep(stateBeforeMove);
+                canUndo = true;
+            }
         }
     }
 }

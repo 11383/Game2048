@@ -8,21 +8,19 @@ namespace GameConsole
         static void Main(string[] args)
         {
             var game = new Game(3, 2, 32);
-            bool successMsgShowed = false;
 
             while (game.IsPlaying)
             {
                 Console.Clear();
                 Console.WriteLine($"Score: {game.Score} \tHighscore: {game.Highscore}");
 
-                if (game.IsWin && !successMsgShowed)
-                {
-                    Console.WriteLine($"You win! {game.Score}\n If you don't want to continue press esc");
-                    successMsgShowed = true;
-                }
-
                 printArray(game.GameBoard);
                 Console.WriteLine($"Press W,S,A,D to move.\nPress C to start new game");
+
+                if (game.CanUndo())
+                {
+                    Console.WriteLine("Press K to undo");
+                }
 
                 switch (Console.ReadKey().Key)
                 {
@@ -44,6 +42,9 @@ namespace GameConsole
                     case ConsoleKey.C:
                         game.Restart();
                         break;
+                    case ConsoleKey.K:
+                        game.Undo();
+                        break;
                     case ConsoleKey.Escape:
                         game.End();
                         break;
@@ -52,8 +53,6 @@ namespace GameConsole
 
             Console.Write($"Game over\nScore {game.Score}");
             printArray(game.GameBoard);
-
-
         }
 
         static void printArray<T>(T[,] arr)

@@ -24,7 +24,7 @@ namespace GameLib
         public bool IsPlaying { get; private set; }
         public bool IsWin { get; private set; }
 
-        public Game(byte size = 4, byte baseValue = 2, ushort successValue = 2048)
+        public Game(byte size = 4, byte baseValue = 2, ushort successValue = 2048) : base(2)
         {
             if (size < 3)
             {
