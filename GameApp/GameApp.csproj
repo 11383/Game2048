@@ -55,11 +55,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Components\ImageSelect.xaml">
+    <Page Include="Controls\ImageSelect.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Components\ScoreBoard.xaml">
+    <Page Include="Controls\ScoreBoard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -75,10 +75,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Components\ImageSelect.xaml.cs">
+    <Compile Include="Components\GameTile.cs" />
+    <Compile Include="Components\GameBoard.cs" />
+    <Compile Include="Controls\ImageSelect.xaml.cs">
       <DependentUpon>ImageSelect.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\ScoreBoard.xaml.cs">
+    <Compile Include="Controls\ScoreBoard.xaml.cs">
       <DependentUpon>ScoreBoard.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Game.xaml.cs">

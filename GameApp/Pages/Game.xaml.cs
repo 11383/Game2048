@@ -3,9 +3,8 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using GameBoard = GameApp.Components.GameBoard;
 
 namespace GameApp
 {
@@ -17,7 +16,7 @@ namespace GameApp
         private ushort size;
         private Canvas canvas;
         private Game game;
-        private int margin = 10;
+        private GameBoard gameBoard;
 
         public PageGame(ushort size)
         {
@@ -26,7 +25,9 @@ namespace GameApp
             InitGame(size);
 
             canvas = cv_GameBoard;
-            Render();
+
+            gameBoard = new Components.GameBoard(canvas);
+            Update();
         }
 
         private void InitGame(ushort size)
@@ -46,8 +47,7 @@ namespace GameApp
 
         private void bt_Restart(object sender, RoutedEventArgs e)
         {
-            game.Restart();
-            Render();
+            Restart();
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -73,58 +73,12 @@ namespace GameApp
                     break;
             }
 
-            Render();
+            Update();
         }
 
-        private void Render()
+        private void Update()
         {
-            canvas.Children.Clear();
-
-            var gameBoard = GetBoard();
-
-            if (gameBoard.Width == 0)
-            {
-                return;
-            }
-
-            double tileSize = (gameBoard.Width - (margin * (size+1))) / size;
-            
-            for (int i=0; i < size; i++)
-            {
-                for(int j=0; j < size; j++)
-                {
-                    int value = game.GameBoard[j, i];
-                    object textColor, bgColor;
-
-                    switch(value)
-                    {
-                        case 2: case 4: // dark tile foreground + specific bachground
-                            bgColor = GetApplicationResourceDictionary()["N" + value + "BackgroundTileColorBrush"];
-                            textColor = GetApplicationResourceDictionary()["DarkTileForegroundColorBrush"];
-                            break;
-                        case 8: case 16: case 32: case 64: case 128: case 256: case 512: case 1024: case 2048: 
-                            bgColor = GetApplicationResourceDictionary()["N" + value + "BackgroundTileColorBrush"];
-                            textColor = GetApplicationResourceDictionary()["LightTileForegroundColorBrush"];
-                            break;
-                        default: // white foreground + black background
-                            bgColor = new BrushConverter().ConvertFrom("#CDC1B4");
-                            textColor = new SolidColorBrush(Colors.White);
-                            break;
-                    }
-
-                    gameBoard.Children.Add(
-                        GetTiles(
-                            i * tileSize + (i + 1) * margin, 
-                            j * tileSize + (j + 1) * margin, 
-                            tileSize,
-                            value == 0 ? "" : value.ToString(), 
-                            bgColor.ToString(), 
-                            textColor.ToString())
-                    );
-                }
-            }
-
-            canvas.Children.Add(gameBoard);
+            gameBoard.Render(game.GameBoard);
 
             UpdateScoreBoards();
 
@@ -132,6 +86,12 @@ namespace GameApp
             {
                 ShowEndMessage();
             }
+        }
+
+        private void Restart()
+        {
+            game.Restart();
+            Update();
         }
 
         public void ShowEndMessage()
@@ -145,79 +105,16 @@ namespace GameApp
 
             if (result == MessageBoxResult.Yes)
             {
-                game.Restart();
-                Render();
+                Restart();
             } else
             {
                 Application.Current.Shutdown();
             }
         }
-
-        private Canvas GetBoard()
+     
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            // calculate size for ratio 1:1
-            var size = canvas.ActualHeight < canvas.ActualWidth ? canvas.ActualHeight : canvas.ActualWidth;
-            var offsetX = (canvas.ActualWidth - size) / 2;
-            var offsetY = (canvas.ActualHeight - size) / 2;
-
-            Console.WriteLine(canvas.ActualHeight);
-
-            // colors
-            var bgColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#bbada0");
-
-            var item = new Canvas { Width = size, Height = size };
-
-            var itemFill = new Rectangle { Width = size, Height = size, RadiusX = 10, RadiusY = 10, Fill = bgColor };
-            item.Children.Add(itemFill);
-
-            // position
-            item.SetValue(Canvas.LeftProperty, offsetX);
-            item.SetValue(Canvas.TopProperty, offsetY);
-
-            return item;
-        }
-
-        private Grid GetTiles(Double x, Double y, double size, string text, String bgC, String tC)
-        {
-            int fontSize = 30;
-
-            // colors
-            var textColor = (SolidColorBrush)new BrushConverter().ConvertFrom(tC);
-            var bgColor = (SolidColorBrush)new BrushConverter().ConvertFrom(bgC);
-
-            // container
-            var item = new Grid { Width = size, Height = size };
-            item.SetValue(Canvas.LeftProperty, x);
-            item.SetValue(Canvas.TopProperty, y);
-
-            // shape
-            var rectangle = new Rectangle { RadiusX = 5, RadiusY = 5, Width = size, Height = size, Fill = bgColor };
-
-            // text
-            var myTextBlock = new TextBlock { Text = text, VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center, Foreground = textColor, FontSize = fontSize, FontWeight = FontWeights.Bold };
-
-            // put together
-            item.Children.Add(rectangle);
-            item.Children.Add(myTextBlock);
-
-            return item;
-        }
-
-        private void page_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            Render();
-        }
-
-        /*private Grid GetScore(byte score)
-        {
-            this.score = new Game(score);
-
-            var ScoreTextBlock = new TextBlock { };
-        }
-        */
-        public static ResourceDictionary GetApplicationResourceDictionary() // returns instance of application's resource dictionary
-        {
-            return Application.Current.Resources;
+            gameBoard.Resize();
         }
 
         private void UpdateScoreBoards()

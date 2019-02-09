@@ -35,11 +35,11 @@
                 </Button.Background>
             </Button>
 
-            <controls:ScoreBoard x:Name="sb_score" MinHeight="0" MinWidth="0" Grid.Column="4" MaxWidth="120"/>
-            <controls:ScoreBoard x:Name="sb_highScore" MinHeight="0" MinWidth="0" Grid.Column="3" MaxWidth="120"/>
+            <controls:ScoreBoard x:Name="sb_score" MinHeight="0" MinWidth="0" Grid.Column="3" MaxWidth="120"/>
+            <controls:ScoreBoard x:Name="sb_highScore" MinHeight="0" MinWidth="0" Grid.Column="4" MaxWidth="120"/>
         </Grid>
 
-        <Canvas x:Name="cv_GameBoard" ClipToBounds="True" SizeChanged="page_SizeChanged" Margin="0,0,0,-0.4" Grid.Row="1"/>
+        <Canvas x:Name="cv_GameBoard" ClipToBounds="True" SizeChanged="Page_SizeChanged" Margin="0,0,0,-0.4" Grid.Row="1"/>
 
     </Grid>
 </Page>
