@@ -4,24 +4,35 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace GameApp.Components
+namespace GameApp
 {
-    class GameTile
+    partial class GameTile
     {
         private int value;
         private double x, y;
+        private int indexX, indexY;
         private int fontSize = 30;
         private double size;
+        private Grid element;
 
-        public GameTile(int value, double x, double y, double size)
+        public GameTile(int value, double x, double y, double size, int indexX, int indexY)
         {
             this.value = value;
             this.x = x;
             this.y = y;
+            this.indexX = indexX;
+            this.indexY = indexY;
             this.size = size;
+
+            this.element = Render();
         }
 
-        public Grid Render()
+        public Grid GetElement()
+        {
+            return element;
+        }
+
+        private Grid Render()
         {
             // colors
             var colors = GetColors();
@@ -29,7 +40,12 @@ namespace GameApp.Components
             var textColor = (SolidColorBrush)new BrushConverter().ConvertFrom(colors.Item2.ToString());
 
             // container
-            var item = new Grid { Width = size, Height = size };
+            var item = new Grid {
+                Width = size,
+                Height = size,
+                RenderTransformOrigin = new Point(0.5, 0.5)
+            };
+
             item.SetValue(Canvas.LeftProperty, x);
             item.SetValue(Canvas.TopProperty, y);
 
@@ -89,6 +105,11 @@ namespace GameApp.Components
             }
 
             return new Tuple<Object, Object>(bg, text);
+        }
+
+        public bool Is(int indexX, int indexY)
+        {
+            return this.indexX == indexX && this.indexY == indexY;
         }
 
         private static ResourceDictionary GetApplicationResourceDictionary() // returns instance of application's resource dictionary

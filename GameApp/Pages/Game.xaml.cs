@@ -17,6 +17,7 @@ namespace GameApp
         private Canvas canvas;
         private Game game;
         private GameBoard gameBoard;
+        private Boolean isAnimEnabled = true;
 
         public PageGame(ushort size)
         {
@@ -26,8 +27,8 @@ namespace GameApp
 
             canvas = cv_GameBoard;
 
-            gameBoard = new Components.GameBoard(canvas);
-            Update();
+            gameBoard = new Components.GameBoard(canvas, size);
+            Render();
         }
 
         private void InitGame(ushort size)
@@ -53,7 +54,9 @@ namespace GameApp
         protected override void OnKeyDown(KeyEventArgs e)
         {
             base.OnKeyDown(e);
-            
+
+            gameBoard.Render(game);
+
             switch (e.Key)
             {
                 case Key.A:
@@ -73,13 +76,33 @@ namespace GameApp
                     break;
             }
 
+            if (isAnimEnabled)
+            {
+                RenderWithAnim();
+            }
+            else
+            {
+                Render();
+            }
+        }
+
+        private void Render()
+        {
+
+            gameBoard.Render(game);
+
+            Update();
+        }
+
+        private void RenderWithAnim()
+        {
+            gameBoard.RenderWithAnimation(game);
+
             Update();
         }
 
         private void Update()
         {
-            gameBoard.Render(game.GameBoard);
-
             UpdateScoreBoards();
 
             if (!game.IsPlaying)
@@ -91,7 +114,7 @@ namespace GameApp
         private void Restart()
         {
             game.Restart();
-            Update();
+            Render();
         }
 
         public void ShowEndMessage()
