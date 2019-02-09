@@ -38,7 +38,7 @@
 
             <Button x:Name="bt_Undo" HorizontalAlignment="Center" Content="" MaxHeight="50" Grid.Column="2" BorderThickness="0" Margin="0" Click="Undo" Width="50" Grid.ColumnSpan="1">
                 <Button.Background>
-                    <ImageBrush Stretch="Uniform" ImageSource="/GameApp;component/Resources/repeat.png"/>
+                    <ImageBrush Stretch="Uniform" ImageSource="/GameApp;component/Resources/undo.png"/>
                 </Button.Background>
             </Button>
 

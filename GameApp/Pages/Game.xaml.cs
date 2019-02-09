@@ -110,7 +110,8 @@ namespace GameApp
                 ShowEndMessage();
             }
             
-            bt_Undo.IsEnabled = game.CanUndo();    
+            bt_Undo.IsEnabled = game.CanUndo();
+            bt_Undo.Visibility = game.CanUndo() ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void Restart()
