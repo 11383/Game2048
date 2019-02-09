@@ -2,6 +2,8 @@
 
 Implementacja popularnej gry logicznej 2048 w C# (na podstawie gry Gabriele Cirulli'ego).
 
+Grę obsługujemy za pomocą klawiszy W, S, A, D. 
+
 ## Screenshots
 ![Main menu](Screenshots/main_menu.png)
 ![Game 3x3](Screenshots/game_3x3.png)
