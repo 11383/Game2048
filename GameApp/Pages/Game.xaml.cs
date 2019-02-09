@@ -82,7 +82,7 @@ namespace GameApp
             }
             else
             {
-                Render();
+                Render(); 
             }
         }
 
@@ -109,6 +109,8 @@ namespace GameApp
             {
                 ShowEndMessage();
             }
+            
+            bt_Undo.IsEnabled = game.CanUndo();    
         }
 
         private void Restart()
@@ -144,6 +146,12 @@ namespace GameApp
         {
             sb_score.SetScore(game.Score);
             sb_highScore.SetScore(game.Highscore);
+        }
+
+        private void Undo(object sender, RoutedEventArgs e)
+        {
+            game.Undo();
+            Render();
         }
     }
 }

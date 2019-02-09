@@ -18,6 +18,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition MaxWidth="80"/>
                 <ColumnDefinition MaxWidth="80"/>
+                <ColumnDefinition MaxWidth="80"/>
                 <ColumnDefinition/>
                 <ColumnDefinition MaxWidth="150"/>
                 <ColumnDefinition MaxWidth="150"/>
@@ -35,8 +36,14 @@
                 </Button.Background>
             </Button>
 
-            <controls:ScoreBoard x:Name="sb_score" MinHeight="0" MinWidth="0" Grid.Column="3" MaxWidth="120"/>
-            <controls:ScoreBoard x:Name="sb_highScore" MinHeight="0" MinWidth="0" Grid.Column="4" MaxWidth="120"/>
+            <Button x:Name="bt_Undo" HorizontalAlignment="Center" Content="" MaxHeight="50" Grid.Column="2" BorderThickness="0" Margin="0" Click="Undo" Width="50" Grid.ColumnSpan="1">
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="/GameApp;component/Resources/repeat.png"/>
+                </Button.Background>
+            </Button>
+
+            <controls:ScoreBoard x:Name="sb_score" MinHeight="0" MinWidth="0" Grid.Column="4" MaxWidth="120"/>
+            <controls:ScoreBoard x:Name="sb_highScore" MinHeight="0" MinWidth="0" Grid.Column="5" MaxWidth="120"/>
         </Grid>
 
         <Canvas x:Name="cv_GameBoard" ClipToBounds="True" SizeChanged="Page_SizeChanged" Margin="0,0,0,-0.4" Grid.Row="1"/>
