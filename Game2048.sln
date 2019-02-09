@@ -2,13 +2,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game2048", "Game2048\Game2048.csproj", "{7781917A-1C60-4B05-91F6-8A9B121EC42A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameLib", "GameLib\GameLib.csproj", "{75815FAD-CC5E-4E19-9E63-0C3D92F25BCC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameConsoleApp", "GameConsole\GameConsoleApp.csproj", "{A85C65E5-3E7E-47C4-B41F-30D5951E8576}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameApp", "GameApp\GameApp.csproj", "{C48B0079-0C04-4923-A3CA-73A15862FF1C}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Installer", "Installer\Installer.vdproj", "{A38233FB-7B3E-46DD-BFCA-3C56396E965C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,12 +18,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7781917A-1C60-4B05-91F6-8A9B121EC42A}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{7781917A-1C60-4B05-91F6-8A9B121EC42A}.Debug|x86.ActiveCfg = Debug|x86
-		{7781917A-1C60-4B05-91F6-8A9B121EC42A}.Debug|x86.Build.0 = Debug|x86
-		{7781917A-1C60-4B05-91F6-8A9B121EC42A}.Release|Any CPU.ActiveCfg = Release|x86
-		{7781917A-1C60-4B05-91F6-8A9B121EC42A}.Release|x86.ActiveCfg = Release|x86
-		{7781917A-1C60-4B05-91F6-8A9B121EC42A}.Release|x86.Build.0 = Release|x86
 		{75815FAD-CC5E-4E19-9E63-0C3D92F25BCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{75815FAD-CC5E-4E19-9E63-0C3D92F25BCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75815FAD-CC5E-4E19-9E63-0C3D92F25BCC}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -48,6 +42,10 @@ Global
 		{C48B0079-0C04-4923-A3CA-73A15862FF1C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C48B0079-0C04-4923-A3CA-73A15862FF1C}.Release|x86.ActiveCfg = Release|Any CPU
 		{C48B0079-0C04-4923-A3CA-73A15862FF1C}.Release|x86.Build.0 = Release|Any CPU
+		{A38233FB-7B3E-46DD-BFCA-3C56396E965C}.Debug|Any CPU.ActiveCfg = Debug
+		{A38233FB-7B3E-46DD-BFCA-3C56396E965C}.Debug|x86.ActiveCfg = Debug
+		{A38233FB-7B3E-46DD-BFCA-3C56396E965C}.Release|Any CPU.ActiveCfg = Release
+		{A38233FB-7B3E-46DD-BFCA-3C56396E965C}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
